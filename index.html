@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Birthday 🎂</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #171738, #512b81, #c850c0);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.card {
+    width: 100%;
+    max-width: 430px;
+    padding: 30px 22px;
+    border: 1px solid #ffffff50;
+    border-radius: 25px;
+    background: #ffffff18;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 40px #0004;
+    z-index: 2;
+}
+
+h1 {
+    margin: 15px 0;
+    font-size: 30px;
+}
+
+p {
+    line-height: 1.8;
+    margin: 15px 0;
+}
+
+.cake {
+    font-size: 85px;
+    animation: bounce 1.5s infinite;
+}
+
+button {
+    margin: 8px 4px;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 30px;
+    background: white;
+    color: #7d35a4;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    transform: scale(1.06);
+    background: #ffe0f2;
+}
+
+.hidden {
+    display: none;
+}
+
+#message {
+    animation: fadeIn 1s ease;
+}
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    pointer-events: none;
+    animation: floatUp 6s linear forwards;
+    z-index: 1;
+}
+
+.confetti {
+    position: fixed;
+    top: -20px;
+    width: 9px;
+    height: 14px;
+    animation: fall 3s linear forwards;
+    z-index: 5;
+    pointer-events: none;
+}
+
+#musicButton {
+    position: fixed;
+    top: 15px;
+    right: 12px;
+    z-index: 10;
+    background: #ffffffdd;
+}
+
+@keyframes bounce {
+    50% { transform: translateY(-12px) rotate(4deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-115vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<button id="musicButton" onclick="toggleMusic()">🎵 Musik: OFF</button>
+
+<audio id="music" loop>
+    <!-- Ganti dengan file musik milikmu -->
+    <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <div class="card">
+
+        <section id="opening">
+            <div class="cake">🎁</div>
+            <h1>Ada Sesuatu Untukmu!</h1>
+            <p>
+                Hari ini adalah hari yang spesial.<br>
+                Aku punya kejutan kecil untukmu. 💖
+            </p>
+            <button onclick="openLetter()">Buka Surat 💌</button>
+        </section>
+
+        <section id="letter" class="hidden">
+            <div class="cake">💌</div>
+            <h1>Surat Spesial</h1>
+            <p>
+                Sebelum membuka kejutan ini,<br>
+                ada satu hal yang ingin kusampaikan...
+            </p>
+            <button onclick="showBirthday()">Lihat Kejutan 🎉</button>
+        </section>
+
+        <section id="message" class="hidden">
+            <div class="cake">🎂</div>
+            <h1>Happy Birthday!</h1>
+
+            <h2 id="recipient">Untuk Kamu 💖</h2>
+
+            <p>
+                Selamat ulang tahun! 🥳<br>
+                Semoga panjang umur, sehat selalu,
+                dan semua impianmu tercapai.
+                <br><br>
+                Semoga setiap harimu dipenuhi kebahagiaan,
+                dikelilingi orang-orang baik, dan selalu
+                punya alasan untuk tersenyum.
+                <br><br>
+                Jangan pernah berhenti mengejar impianmu.
+                Semoga tahun ini membawa banyak hal indah
+                dalam hidupmu! ✨
+                <br><br>
+                <b>Have a wonderful birthday! 🎈</b>
+            </p>
+
+            <button onclick="celebrate()">Rayakan! 🎊</button>
+            <button onclick="restart()">Ulangi 🔄</button>
+        </section>
+
+    </div>
+</div>
+
+<script>
+const music = document.getElementById("music");
+const musicButton = document.getElementById("musicButton");
+
+function openLetter() {
+    document.getElementById("opening").classList.add("hidden");
+    document.getElementById("letter").classList.remove("hidden");
+}
+
+function showBirthday() {
+    document.getElementById("letter").classList.add("hidden");
+    document.getElementById("message").classList.remove("hidden");
+    celebrate();
+}
+
+async function toggleMusic() {
+    if (music.paused) {
+        try {
+            await music.play();
+            musicButton.textContent = "🎵 Musik: ON";
+        } catch (error) {
+            alert("Tambahkan file musik.mp3 di folder yang sama dengan index.html.");
+        }
+    } else {
+        music.pause();
+        musicButton.textContent = "🎵 Musik: OFF";
+    }
+}
+
+function celebrate() {
+    for (let i = 0; i < 100; i++) {
+        setTimeout(createConfetti, i * 20);
+    }
+}
+
+function createConfetti() {
+    const item = document.createElement("div");
+    item.className = "confetti";
+    item.style.left = Math.random() * 100 + "vw";
+    item.style.backgroundColor =
+        ["#ff4d8d", "#ffe066", "#70e1f5",
+         "#ffffff", "#b8ff6b"][Math.floor(Math.random() * 5)];
+
+    document.body.appendChild(item);
+    setTimeout(() => item.remove(), 3500);
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = ["💖", "💕", "❤️", "✨"][
+        Math.floor(Math.random() * 4)
+    ];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (18 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+}
+
+function restart() {
+    document.getElementById("message").classList.add("hidden");
+    document.getElementById("opening").classList.remove("hidden");
+}
+
+setInterval(createHeart, 600);
+</script>
+
+</body>
+</html>
