@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f0e8">
+  <title>Satu halaman buat kamu</title>
+
+  <style>
+    :root {
+      --paper: #f5f0e8;
+      --ink: #373b34;
+      --muted: #7d8074;
+      --green: #68775a;
+      --pink: #ead1cf;
+      --line: #dedbd0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 5px;
+    }
+
+    ::selection {
+      background: #dbdfa8;
+      color: var(--ink);
+    }
+
+    .page {
+      width: min(960px, calc(100% - 44px));
+      margin: auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 29px 0 22px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .tiny-mark { color: var(--green); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      align-items: center;
+      gap: 65px;
+      padding: 85px 0 65px;
+    }
+
+    .eyebrow {
+      margin: 0 0 22px;
+      color: var(--green);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: clamp(52px, 7.8vw, 88px);
+      font-weight: normal;
+      line-height: 1.02;
+      letter-spacing: -4px;
+    }
+
+    h1 em {
+      color: var(--green);
+      font-weight: normal;
+    }
+
+    .intro {
+      max-width: 330px;
+      margin: 27px 0 23px;
+      color: #747669;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .handwritten {
+      font-family: "Segoe Print", "Bradley Hand", cursive;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .small-note {
+      display: inline-block;
+      margin: 0;
+      color: #8a726a;
+      transform: rotate(-4deg);
+    }
+
+    /* Sudut foto */
+    .photo-corner {
+      position: relative;
+      padding: 16px 8px 35px;
+    }
+
+    .polaroid {
+      position: relative;
+      margin: 0;
+      padding: 13px 13px 21px;
+      background: #fffef9;
+      box-shadow: 1px 7px 18px #3c382015;
+      transform: rotate(5deg);
+    }
+
+    .tape {
+      position: absolute;
+      z-index: 2;
+      top: -11px;
+      left: calc(50% - 47px);
+      width: 94px;
+      height: 29px;
+      background: #c9c69b8c;
+      transform: rotate(-8deg);
+    }
+
+    .photo {
+      position: relative;
+      display: grid;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      place-items: center;
+      background: #e4e5d8;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-placeholder {
+      display: grid;
+      justify-items: center;
+      gap: 13px;
+      padding: 25px;
+      color: #79816c;
+      text-align: center;
+    }
+
+    .photo-placeholder svg {
+      width: 115px;
+      height: 115px;
+    }
+
+    .photo-placeholder span {
+      font-family: Georgia, serif;
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    figcaption {
+      margin-top: 17px;
+      text-align: center;
+      color: #726f63;
+      font-family: "Segoe Print", "Bradley Hand", cursive;
+      font-size: 14px;
+    }
+
+    .photo-note {
+      position: absolute;
+      right: -10px;
+      bottom: -13px;
+      width: 160px;
+      margin: 0;
+      padding: 18px;
+      background: #e9dfab;
+      box-shadow: 2px 4px 8px #3c382010;
+      font-size: 13px;
+      line-height: 1.6;
+      transform: rotate(-7deg);
+    }
+
+    .section {
+      padding: 36px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-label {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .little-things {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .note {
+      min-height: 145px;
+      padding: 23px 20px;
+      background: #ecebdc;
+      border-radius: 2px;
+    }
+
+    .note:nth-child(2) {
+      background: #efded9;
+      transform: rotate(-2deg);
+    }
+
+    .note:nth-child(3) {
+      background: #e2e6db;
+      transform: rotate(1.5deg);
+    }
+
+    .note-number {
+      color: #8c8c7c;
+      font-family: Georgia, serif;
+      font-size: 12px;
+    }
+
+    .note p {
+      margin: 15px 0 0;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* Surat */
+    .letter-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      width: 100%;
+      padding: 22px 0;
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .letter-title {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 25px;
+    }
+
+    .letter-subtitle {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .toggle-icon {
+      font-size: 28px;
+      font-weight: normal;
+    }
+
+    .letter {
+      padding: 30px 24px;
+      border-bottom: 1px solid var(--line);
+      background:
+        repeating-linear-gradient(
+          transparent,
+          transparent 31px,
+          #e3dfd4 31px,
+          #e3dfd4 32px
+        );
+      background-position: 0 22px;
+    }
+
+    .letter p {
+      margin: 0 0 24px;
+      font-size: 14px;
+      line-height: 32px;
+      white-space: pre-line;
+    }
+
+    .letter p:last-child { margin-bottom: 0; }
+
+    /* Form harapan kecil */
+    .wish-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, serif;
+      font-size: 29px;
+      font-weight: normal;
+      letter-spacing: -.5px;
+    }
+
+    .description {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .wish-form label {
+      display: block;
+      margin-bottom: 9px;
+      color: #737767;
+      font-size: 12px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    input {
+      width: 100%;
+      min-width: 0;
+      padding: 13px 12px;
+      border: 1px solid #d4d7c8;
+      border-radius: 3px;
+      background: #fffdf8;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .send-button {
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 3px;
+      background: var(--green);
+      color: white;
+      cursor: pointer;
+    }
+
+    .send-button:hover { background: #536246; }
+
+    .wish-status {
+      min-height: 38px;
+      margin: 12px 0 0;
+      color: var(--green);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+      padding: 24px 0 35px;
+      border-top: 1px solid var(--line);
+    }
+
+    footer p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .secret-button {
+      flex-shrink: 0;
+      padding: 8px 0;
+      border: 0;
+      border-bottom: 1px dashed #b6b7a8;
+      background: none;
+      color: #777c6c;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .secret-message {
+      padding-bottom: 25px;
+      color: #8c726a;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .confetti {
+      position: fixed;
+      z-index: 10;
+      top: -15px;
+      width: 7px;
+      height: 11px;
+      pointer-events: none;
+      animation: fall var(--time) linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform:
+          translate(var(--drift), calc(100vh + 40px))
+          rotate(var(--rotation));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .page { width: calc(100% - 38px); }
+
+      header {
+        font-size: 10px;
+        letter-spacing: .5px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 52px 0 55px;
+      }
+
+      h1 { letter-spacing: -2.5px; }
+
+      .photo-corner {
+        width: min(310px, 90%);
+        margin: 0 auto;
+      }
+
+      .little-things { grid-template-columns: 1fr; }
+
+      .note { min-height: auto; }
+
+      .note:nth-child(2),
+      .note:nth-child(3) {
+        transform: none;
+      }
+
+      .wish-section {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header>
+      <span>BUKAN WEBSITE PENTING.</span>
+      <span class="tiny-mark">TAPI ORANGNYA PENTING.</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="birthday-title">
+        <div>
+          <p class="eyebrow">Satu halaman, khusus buat kamu</p>
+
+          <h1 id="birthday-title">
+            Hei, <em id="recipient">Miti.</em><br>
+            selamat<br>
+            bertambah<br>
+            cerita.
+          </h1>
+
+          <p class="intro">
+            Aku sempat bingung mau kasih apa.
+            Jadi, kubikinin tempat kecil di internet.
+            Isinya nggak banyak. Tapi semuanya buat kamu.
+          </p>
+
+          <p class="handwritten small-note">
+            iya, kamu. bukan yang lain.
+          </p>
+        </div>
+
+        <div class="photo-corner">
+          <figure class="polaroid">
+            <span class="tape" aria-hidden="true"></span>
+
+            <div class="photo">
+              <img id="birthday-photo" alt="" hidden>
+
+              <div class="photo-placeholder" id="photo-placeholder">
+                <!-- Gambar bunga sederhana, tanpa file tambahan -->
+                <svg
+                  viewBox="0 0 120 120"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M60 105C60 83 63 65 59 45"
+                    stroke="#7b8868"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M60 87C43 88 34 78 35 69C48 68 58 74 60 87Z"
+                    fill="#a8b193"
+                  />
+                  <path
+                    d="M61 76C77 77 87 67 86 58C73 59 64 65 61 76Z"
+                    fill="#919f7d"
+                  />
+                  <g fill="#dca8a5">
+                    <ellipse cx="60" cy="25" rx="11" ry="17"/>
+                    <ellipse cx="60" cy="53" rx="11" ry="17"/>
+                    <ellipse cx="46" cy="39" rx="17" ry="11"/>
+                    <ellipse cx="74" cy="39" rx="17" ry="11"/>
+                  </g>
+                  <circle cx="60" cy="39" r="10" fill="#e8cc83"/>
+                </svg>
+
+                <span>foto favoritmu taruh di sini, ya.</span>
+              </div>
+            </div>
+
+            <figcaption id="photo-caption">
+              pemeran utama hari ini.
+            </figcaption>
+          </figure>
+
+          <p class="photo-note handwritten">
+            nggak harus fotogenik.<br>
+            kamu aja udah cukup.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="notes-title">
+        <h2 class="section-label" id="notes-title">
+          Tiga hal untuk dibawa ke umur yang baru
+        </h2>
+
+        <div class="little-things">
+          <article class="note">
+            <span class="note-number">01 /</span>
+            <p>
+              Nggak semua hal harus selesai hari ini.
+              Kuenya dulu aja.
+            </p>
+          </article>
+
+          <article class="note">
+            <span class="note-number">02 /</span>
+            <p>
+              Boleh tambah dewasa.
+              Tapi jangan berhenti ketawa gara-gara hal receh.
+            </p>
+          </article>
+
+          <article class="note">
+            <span class="note-number">03 /</span>
+            <p>
+              Kalau capek, istirahat.
+              Kamu manusia, bukan charger yang dipinjam semua orang.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-label="Surat ulang tahun">
+        <button
+          class="letter-toggle"
+          id="letter-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="letter"
+        >
+          <span>
+            <span class="letter-title">Ada yang mau kubilang.</span>
+            <span class="letter-subtitle">
+              Klik buat buka. Bacanya pelan-pelan aja.
+            </span>
+          </span>
+          <span class="toggle-icon" aria-hidden="true">+</span>
+        </button>
+
+        <div class="letter" id="letter" hidden>
+          <p id="letter-greeting"></p>
+          <div id="letter-body"></div>
+          <p id="letter-signature"></p>
+        </div>
+      </section>
+
+      <section class="section wish-section" aria-labelledby="wish-title">
+        <div>
+          <h2 id="wish-title">Sebelum lanjut, satu harapan?</h2>
+          <p class="description">
+            Tulis sesuatu yang kamu pengin di umur yang baru.
+            Nggak perlu masuk akal buat orang lain.
+            Cukup berarti buat kamu.
+          </p>
+        </div>
+
+        <form class="wish-form" id="wish-form">
+          <label for="wish">Tahun ini, aku ingin…</label>
+
+          <div class="input-row">
+            <input
+              id="wish"
+              name="wish"
+              type="text"
+              placeholder="lebih berani, mungkin?"
+              maxlength="180"
+              autocomplete="off"
+              required
+            >
+            <button class="send-button" type="submit">
+              Amin.
+            </button>
+          </div>
+
+          <p class="wish-status" id="wish-status" aria-live="polite">
+            Tulisanmu nggak dikirim atau disimpan oleh halaman ini.
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Dibuat khusus untuk <span id="footer-name"></span>.<br>
+        Oleh <span id="footer-sender"></span>, yang sempat revisi berkali-kali.
+      </p>
+
+      <button
+        class="secret-button"
+        id="secret-button"
+        type="button"
+        aria-controls="secret-message"
+        aria-expanded="false"
+      >
+        psst… satu lagi
+      </button>
+    </footer>
+
+    <div
+      class="secret-message handwritten"
+      id="secret-message"
+      aria-live="polite"
+      hidden
+    ></div>
+  </div>
+
+  <script>
+    /* Ubah bagian ini supaya benar-benar terasa dari kamu. */
+    const CONFIG = {
+      nama: "Miti",
+      pengirim: "Nopal",
+
+      // Contoh: "foto-kamu.jpg"
+      // Letakkan file foto di folder yang sama dengan index.html.
+      foto: "foto.jpg",
+      keteranganFoto: "pemeran utama hari ini.",
+
+      surat: [
+        "Selamat ulang tahun, ya. Aku nggak punya kalimat yang hebat-hebat. Aku cuma senang masih bisa ikut merayakan hari kamu.",
+
+        "Semoga di umur yang baru ini, ada lebih banyak hari yang terasa ringan. Ada kabar baik yang datang pas kamu butuh. Dan ada hal-hal kecil yang bikin kamu mikir: ternyata hidup lumayan juga.",
+
+        "Kalau nanti rencanamu berubah atau jalannya agak muter, nggak apa-apa. Aku tetap berharap kamu ketemu tempat dan orang-orang yang bikin kamu nyaman jadi diri sendiri.",
+
+        "Hari ini makan yang enak. Foto yang banyak. Nggak usah buru-buru balas semua pesan. Nikmatin dulu hari kamu."
+      ]
+    };
+
+    const byId = (id) => document.getElementById(id);
+
+    byId("recipient").textContent = CONFIG.nama + ".";
+    byId("footer-name").textContent = CONFIG.nama;
+    byId("footer-sender").textContent = CONFIG.pengirim;
+    byId("photo-caption").textContent = CONFIG.keteranganFoto;
+    byId("letter-greeting").textContent = `Hei, ${CONFIG.nama}.`;
+    byId("letter-signature").textContent =
+      `Selamat ulang tahun.
+— ${CONFIG.pengirim}`;
+
+    document.title = `Satu halaman buat ${CONFIG.nama}`;
+
+    CONFIG.surat.forEach((paragraf) => {
+      const p = document.createElement("p");
+      p.textContent = paragraf;
+      byId("letter-body").appendChild(p);
+    });
+
+    if (CONFIG.foto.trim()) {
+      const photo = byId("birthday-photo");
+
+      photo.alt = `Foto pilihan untuk ulang tahun ${CONFIG.nama}`;
+
+      photo.addEventListener("load", () => {
+        photo.hidden = false;
+        byId("photo-placeholder").hidden = true;
+      });
+
+      photo.addEventListener("error", () => {
+        photo.hidden = true;
+        byId("photo-placeholder").hidden = false;
+      });
+
+      photo.src = CONFIG.foto;
+    }
+
+    byId("letter-toggle").addEventListener("click", () => {
+      const letter = byId("letter");
+      const willOpen = letter.hidden;
+
+      letter.hidden = !willOpen;
+
+      byId("letter-toggle").setAttribute(
+        "aria-expanded",
+        String(willOpen)
+      );
+
+      document.querySelector(".toggle-icon").textContent =
+        willOpen ? "−" : "+";
+    });
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    let lastCelebration = 0;
+
+    function celebrate() {
+      const now = Date.now();
+
+      if (reducedMotion.matches || now - lastCelebration < 1500) {
+        return;
+      }
+
+      lastCelebration = now;
+
+      const colors = ["#a6af90", "#d8aaa6", "#dbc486", "#bab0c8"];
+
+      for (let i = 0; i < 36; i++) {
+        const piece = document.createElement("span");
+
+        piece.className = "confetti";
+        piece.setAttribute("aria-hidden", "true");
+        piece.style.left = `${Math.random() * 100}vw`;
+        piece.style.background = colors[i % colors.length];
+        piece.style.setProperty("--time", `${2.5 + Math.random() * 2}s`);
+        piece.style.setProperty("--drift", `${Math.random() * 180 - 90}px`);
+        piece.style.setProperty("--rotation", `${Math.random() * 720}deg`);
+
+        document.body.appendChild(piece);
+
+        piece.addEventListener("animationend", () => piece.remove());
+        setTimeout(() => piece.remove(), 5000);
+      }
+    }
+
+    byId("wish-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const input = byId("wish");
+
+      if (!input.value.trim()) {
+        input.value = "";
+        input.reportValidity();
+        return;
+      }
+
+      byId("wish-status").textContent =
+        "Amin. Semoga nanti kamu bisa bilang, “eh, ternyata kesampaian.”";
+
+      celebrate();
+    });
+
+    const secrets = [
+      "Sebetulnya mau kasih kado mahal. Terus ingat saldo. Jadi ini dulu, ya.",
+      "Tapi doanya nggak versi hemat. Tenang aja.",
+      "Oke, sekarang tutup websitenya. Cari kue. Kamu punya hari buat dirayakan."
+    ];
+
+    let secretIndex = 0;
+
+    byId("secret-button").addEventListener("click", () => {
+      const message = byId("secret-message");
+
+      message.hidden = false;
+      message.textContent = secrets[secretIndex % secrets.length];
+
+      byId("secret-button").setAttribute("aria-expanded", "true");
+      byId("secret-button").textContent = "masih ada?";
+      secretIndex++;
+    });
+  </script>
+</body>
+</html>
